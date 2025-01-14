@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto HTTP Request Example</title>
+</head>
+<body>
+  <h1>Auto Fetch Data from Glitch API</h1>
+  <pre id="response"></pre>
+
+  <script>
+    // 定期的にリクエストを送信
+    async function fetchData() {
+      try {
+        // 送信するURL
+        const url = 'https://quaint-separate-velvet.glitch.me/convert?amount=10';
+
+        // fetch APIを使ってGETリクエストを送る
+        const response = await fetch(url);
+
+        // レスポンスをJSONとして解析
+        const data = await response.json();
+
+        // 解析したデータを表示
+        document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        // エラーハンドリング
+        console.error('Error fetching data:', error);
+        document.getElementById('response').textContent = 'Error: ' + error;
+      }
+    }
+
+    // 3分ごとにfetchDataを実行
+    setInterval(fetchData, 180000);  // 180,000ミリ秒（3分）ごとにリクエストを送信
+  </script>
+</body>
+</html>
